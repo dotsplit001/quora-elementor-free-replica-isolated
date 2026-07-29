@@ -1,0 +1,127 @@
+<main class="quora-inner qi-page-contact" data-quora-inner data-page="contact">
+  __QUORA_HEADER__
+
+  <section class="qi-contact-hero">
+    <div class="qi-contact-shell">
+      <div class="qi-contact-heading qi-reveal qi-reveal--compact" style="--qi-delay:100ms">
+        <span class="qi-contact-heading-icon" aria-hidden="true">
+          <svg viewBox="0 0 256 256">
+            <path d="M104,152a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16H96A8,8,0,0,1,104,152Zm136-36v60a16,16,0,0,1-16,16H136v32a8,8,0,0,1-16,0V192H32a16,16,0,0,1-16-16V116A60.07,60.07,0,0,1,76,56h76V24a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H168V56h12A60.07,60.07,0,0,1,240,116ZM120,176V116a44,44,0,0,0-88,0v60Zm104-60a44.05,44.05,0,0,0-44-44H168v72a8,8,0,0,1-16,0V72H116.75A59.86,59.86,0,0,1,136,116v60h88Z"/>
+          </svg>
+        </span>
+        <h2>We’re here to help</h2>
+        <p>Whether you have a question, feedback, or need support, our team is ready to assist you.</p>
+      </div>
+
+      <div class="qi-contact-preorder qi-reveal" style="--qi-from-y:20px;--qi-delay:200ms">
+        <div class="qi-contact-image">
+          <img src="__QUORA_ASSET_BASE__contact-headphones.jpeg" alt="Person wearing Quora headphones">
+        </div>
+
+        <div class="qi-contact-column">
+          <article class="qi-contact-email">
+            <h3>Email</h3>
+            <div>
+              <a href="mailto:support@example.com" target="_blank" rel="noopener">support@example.com</a>
+              <a href="mailto:help@example.com" target="_blank" rel="noopener">help@example.com</a>
+            </div>
+          </article>
+
+          <div class="qi-contact-form-card">
+            <form class="qi-contact-form" method="post" data-endpoint="__QUORA_CONTACT_ENDPOINT__" novalidate>
+              <label class="qi-contact-field">
+                <span class="qi-visually-hidden">Name</span>
+                <input name="Name" type="text" placeholder="Jane Smith" autocomplete="name" required>
+              </label>
+              <label class="qi-contact-field">
+                <span class="qi-visually-hidden">Email</span>
+                <input name="Email" type="email" placeholder="jane@quora.com" autocomplete="email" required>
+              </label>
+              <label class="qi-contact-field qi-contact-field--select">
+                <span class="qi-visually-hidden">Country</span>
+                <select name="Country" aria-label="Country">
+                  <option value="" disabled selected>Country</option>
+                  <option>France</option>
+                  <option>United States</option>
+                  <option>Germany</option>
+                  <option>Brasil</option>
+                </select>
+              </label>
+              <label class="qi-contact-field qi-contact-field--note">
+                <span class="qi-visually-hidden">Note</span>
+                <textarea name="Note" placeholder="Your message" required></textarea>
+              </label>
+              <label class="qi-honeypot" aria-hidden="true">Website<input name="Website" type="text" tabindex="-1" autocomplete="off"></label>
+              <button class="qi-contact-submit" type="submit">
+                <span class="qi-contact-submit-default">Submit</span>
+                <span class="qi-contact-submit-loading" aria-hidden="true"><i></i></span>
+                <span class="qi-contact-submit-success" aria-hidden="true">
+                  <svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+                  <strong>Got your request!</strong>
+                  <small>We'll get back to you soon.</small>
+                </span>
+                <img class="qi-contact-submit-image" src="__QUORA_ASSET_BASE__contact-success.jpeg" alt="">
+                <i class="qi-contact-submit-shade" aria-hidden="true"></i>
+                <span class="qi-contact-submit-error">Something went wrong</span>
+              </button>
+              <p class="qi-form-status" role="status" aria-live="polite" hidden></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="qi-contact-faq">
+    <div class="qi-contact-faq-shell">
+      <div class="qi-contact-faq-heading qi-reveal qi-reveal--compact" style="--qi-delay:100ms">
+        <h2>Ask less. Know more</h2>
+        <p>Quick answers to the things you’re wondering—so you can get back to living smarter.</p>
+      </div>
+
+      <div class="qi-faq-panel">
+        <div class="qi-faq-list">
+          <article class="qi-faq-item">
+            <button type="button" aria-expanded="false"><span>What is Quora and what does it do?</span><img src="__QUORA_ASSET_BASE__faq-toggle-icon.svg" alt=""></button>
+            <div class="qi-faq-answer"><p>Quora is a smart home device brand that connects and controls your home appliances, lighting, security, and more through a single app or voice commands. It brings convenience, automation, and energy efficiency to your everyday life.</p></div>
+          </article>
+          <article class="qi-faq-item">
+            <button type="button" aria-expanded="false"><span>How do I set up my Quora device?</span><img src="__QUORA_ASSET_BASE__faq-toggle-icon.svg" alt=""></button>
+            <div class="qi-faq-answer"><p>Simply plug in your device, download the Quora Smart app from the App Store or Google Play, and follow the step-by-step setup guide. Most devices can be connected to your Wi-Fi and configured in under 5 minutes.</p></div>
+          </article>
+          <article class="qi-faq-item">
+            <button type="button" aria-expanded="false"><span>Is Quora compatible with Alexa, Google Assistant, or Siri?</span><img src="__QUORA_ASSET_BASE__faq-toggle-icon.svg" alt=""></button>
+            <div class="qi-faq-answer"><p>Yes! Quora smart devices are compatible with Amazon Alexa, Google Assistant, and Apple Siri Shortcuts, allowing you to control your home with simple voice commands.</p></div>
+          </article>
+          <article class="qi-faq-item">
+            <button type="button" aria-expanded="false"><span>Can I control my Quora devices when I'm not at home?</span><img src="__QUORA_ASSET_BASE__faq-toggle-icon.svg" alt=""></button>
+            <div class="qi-faq-answer"><p>Absolutely. As long as your devices are connected to Wi-Fi and you have internet access on your phone, you can control, schedule, and monitor them from anywhere using the Quora app.</p></div>
+          </article>
+          <article class="qi-faq-item">
+            <button type="button" aria-expanded="false"><span>Is my data safe with Quora?</span><img src="__QUORA_ASSET_BASE__faq-toggle-icon.svg" alt=""></button>
+            <div class="qi-faq-answer"><p>Yes. We take your privacy seriously. Quora uses end-to-end encryption and follows industry-standard data protection practices to keep your personal information secure.</p></div>
+          </article>
+          <article class="qi-faq-item">
+            <button type="button" aria-expanded="false"><span>Do Quora devices require a hub?</span><img src="__QUORA_ASSET_BASE__faq-toggle-icon.svg" alt=""></button>
+            <div class="qi-faq-answer"><p>Most Quora devices are hub-free and connect directly to your Wi-Fi network. However, certain automation features or legacy products may require the Quora Smart Hub for optimal performance.</p></div>
+          </article>
+          <article class="qi-faq-item">
+            <button type="button" aria-expanded="false"><span>Can I set up automation or routines with Quora devices?</span><img src="__QUORA_ASSET_BASE__faq-toggle-icon.svg" alt=""></button>
+            <div class="qi-faq-answer"><p>Yes. You can create custom schedules, routines, and triggers in the Quora Smart app—for example, turning on lights at sunset or activating a security mode when you leave home.</p></div>
+          </article>
+          <article class="qi-faq-item">
+            <button type="button" aria-expanded="false"><span>What should I do if my device isn’t responding?</span><img src="__QUORA_ASSET_BASE__faq-toggle-icon.svg" alt=""></button>
+            <div class="qi-faq-answer"><p>If your Quora device isn’t responding, start by making sure it’s connected to power and your Wi-Fi network.</p></div>
+          </article>
+        </div>
+
+        <figure class="qi-faq-visual">
+          <img src="__QUORA_ASSET_BASE__about-studio.jpeg" alt="Quora design studio">
+          <span class="qi-kicker">FAQ</span>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  __QUORA_FOOTER__
+</main>

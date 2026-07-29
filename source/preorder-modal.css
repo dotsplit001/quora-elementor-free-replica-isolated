@@ -1,0 +1,329 @@
+.q-preorder-overlay,
+.q-preorder-overlay *,
+.q-preorder-overlay *::before,
+.q-preorder-overlay *::after{
+  box-sizing: border-box;
+}
+
+.q-preorder-overlay[hidden]{
+  display: none !important;
+}
+
+.q-preorder-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  font-family: "Inter", Arial, sans-serif;
+  color: #000;
+}
+
+.q-preorder-scrim{
+  position: absolute;
+  inset: 0;
+  background: #ededed;
+  opacity: 0;
+  transition: opacity 1ms linear;
+}
+
+.q-preorder-dialog{
+  position: relative;
+  z-index: 1;
+  width: min(1152px, 80vw);
+  height: 704px;
+  max-height: calc(100vh - 48px);
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 24px;
+  outline: 0;
+  background: #f7f7f7;
+  opacity: .001;
+  transform: translate3d(0, 60px, 0);
+  will-change: opacity, transform;
+}
+
+.q-preorder-overlay.is-open .q-preorder-scrim{
+  opacity: 1;
+}
+
+.q-preorder-overlay.is-open .q-preorder-dialog{
+  animation: q-preorder-dialog-in 980ms linear both;
+}
+
+@keyframes q-preorder-dialog-in{
+  0%      { opacity: .001; transform: translate3d(0, 60px, 0); }
+  10%     { opacity: .35;  transform: translate3d(0, 39px, 0); }
+  20%     { opacity: .64;  transform: translate3d(0, 21.5px, 0); }
+  30%     { opacity: .81;  transform: translate3d(0, 11.3px, 0); }
+  40%     { opacity: .91;  transform: translate3d(0, 5.7px, 0); }
+  50%     { opacity: .96;  transform: translate3d(0, 2.8px, 0); }
+  60%     { opacity: .985; transform: translate3d(0, 1.3px, 0); }
+  70%     { opacity: .995; transform: translate3d(0, .55px, 0); }
+  80%     { opacity: .999; transform: translate3d(0, .2px, 0); }
+  100%    { opacity: 1;    transform: none; }
+}
+
+.q-preorder-visual,
+.q-preorder-content{
+  position: relative;
+  flex: 1 1 0;
+  width: 1px;
+  min-width: 0;
+  height: 680px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.q-preorder-visual{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: column;
+  padding: 24px;
+  color: #fff;
+}
+
+.q-preorder-visual img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.q-preorder-visual p{
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25.6px;
+}
+
+.q-preorder-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  background: #fff;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.q-preorder-header{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.q-preorder-header > p{
+  flex: 1 1 0;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25.6px;
+  text-align: right;
+}
+
+.q-preorder-back{
+  min-width: 101px;
+  height: 39.6042px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #f7f7f7;
+  color: #000;
+  font: 400 14px/19.6px "Inter", sans-serif;
+  cursor: pointer;
+}
+
+.q-preorder-back svg{
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: currentColor;
+}
+
+.q-preorder-form{
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0 0 64px;
+}
+
+.q-preorder-form label{
+  width: 100%;
+  display: block;
+  margin: 0;
+}
+
+.q-preorder-field-label{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.q-preorder-form input,
+.q-preorder-form select,
+.q-preorder-form textarea{
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #ededed;
+  border-radius: 10px;
+  outline: 0;
+  background: #fff;
+  color: #000;
+  font: 400 16px/1.2 "Inter", sans-serif;
+  letter-spacing: 0;
+  transition: border-color 160ms ease;
+}
+
+.q-preorder-form input,
+.q-preorder-form select{
+  height: 52px;
+}
+
+.q-preorder-form textarea{
+  min-height: 100px;
+  resize: vertical;
+}
+
+.q-preorder-form input::placeholder,
+.q-preorder-form textarea::placeholder{
+  color: rgba(0, 0, 0, .5);
+  opacity: 1;
+}
+
+.q-preorder-form input:focus,
+.q-preorder-form select:focus,
+.q-preorder-form textarea:focus{
+  border-color: #000;
+}
+
+.q-preorder-submit{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: #ff5e2b;
+  color: #fff;
+  font: 600 16px/24px "Inter", sans-serif;
+  cursor: pointer;
+  transition: opacity 180ms ease, background-color 180ms ease;
+}
+
+.q-preorder-submit svg{
+  width: 16px;
+  height: 16px;
+  display: block;
+  fill: currentColor;
+}
+
+.q-preorder-submit:disabled{
+  cursor: wait;
+  opacity: .5;
+}
+
+.q-preorder-form.is-success .q-preorder-submit{
+  background: #f7f7f7;
+  color: #000;
+}
+
+.q-preorder-availability{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.q-preorder-availability p{
+  flex: 1 1 0;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25.6px;
+}
+
+.q-preorder-availability strong{
+  font-weight: 700;
+}
+
+.q-preorder-countdown{
+  width: 95.8333px;
+  flex: 0 0 95.8333px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font: 500 16px/16px "Inter", sans-serif;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+@media (max-width: 809.98px){
+  .q-preorder-overlay{
+    padding: 12px;
+  }
+
+  .q-preorder-dialog{
+    width: 92vw;
+    height: auto;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+  }
+
+  .q-preorder-visual{
+    display: none;
+  }
+
+  .q-preorder-content{
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    gap: 32px;
+    justify-content: flex-start;
+  }
+
+  .q-preorder-header{
+    gap: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .q-preorder-overlay.is-open .q-preorder-dialog{
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

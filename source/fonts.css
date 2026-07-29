@@ -1,0 +1,144 @@
+/*
+ * Exact font files used by the Framer reference.
+ * Keeping the same static faces preserves its weight matching, glyph metrics,
+ * line wrapping, and fallback behavior in both preview and Elementor Free.
+ */
+@font-face {
+  font-family: "Inter";
+  src: url("https://framerusercontent.com/assets/vQyevYAyHtARFwPqUzQGpnDs.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://framerusercontent.com/assets/d3tHnaQIAeqiE5hGcRw4mmgWYU.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://framerusercontent.com/assets/1ZFS7N918ojhhd0nQWdj3jz4w.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://framerusercontent.com/assets/DXD0Q7LSl7HEvDzucnyLnGBHM.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://framerusercontent.com/assets/vFzuJY0c65av44uhEKB6vyjFMg.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://framerusercontent.com/assets/QxmhnWTzLtyjIiZcfaLIJ8EFBXU.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://framerusercontent.com/assets/jn4BtSPLlS0NDp1KiFAtFKiiY0o.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("https://framerusercontent.com/assets/g0c8vEViiXNlKAgI4Ymmk3Ig.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/QVSEREMQIHTDJ6PBN6SDKDQRKHAIJM4G/5FQFK3HFEC5ZJORN7EUWWXKPUKR4HDO2/S3LPGNCYQN366TZLSH3ASTPTKANFMFDS.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/RFRIJEFDDNYP2G3SPLVDDAM6LQXTHLSW/F4KOPAGTNOYCQKYEBAKSIKS536ETV6GN/AEP5JZTJJB3JMLBFSBTZLRSVGYD73SDZ.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/NWFQAWEPGN3FR4FYMX6PY5M2HVOQSZWU/IIWY67X24KIURE4HBNGWYFMHSEMIVC2G/QAJFELFQRETRXRXDQOALZZUXNPM2U5VX.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/Y3L2ZYYP26QQ73LRHQEGMGHU7HLMLCIE/5WHYQ3VUOWNEN3Y7DIOEXY5R4W6MYIPF/SS2LIWIFT3QZUKOLJ7TGBEFWHF3TFYQD.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/UCII5D3SSDQUKDNFBIKBIAPMR2IJ6L7T/XL3KCUFJ73GTWVQOSF66RCIM4V7NJIVX/44WTW5QSGOU5UEWRO4NHIW5D4FZHB7PL.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/QV67EU3XJ5BTJALJXKWL4BK7C3GFGCFP/D7A4U7UFR3LMCTIYWZP4QFWGMT5X6IEF/GQ5MR5RSGVSEH6S242MNYCORRMV5LOZ3.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/5RE3A3EGPOMCLEAAP2ADSOXLMBA2GVVG/OKIGTRIMSUVQJWYHJN3PFRLK7FB7PF3Y/6SZQDHJFZ2YU5X7TY5T6ZXUSCQAEOIAE.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/WVMQPRJAMTBZTG3EYEW2BMDRQFQWVIKT/VVJ4EQ6W4ABQOK4JARCSOTWC64FWMKFX/WEZSSPVJ7W5EAH7ZJ47W5KFCVI7UWUIX.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/GDORYCYP3U3MKIKHZNDJGHDYDPVQPHAS/ORR4EYQENJF7RBGXI4RRRWUEDXEIEFZQ/6Y6VR6UQPVF2GIANVIG5ITQRQM2CLQ3A.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/URJEJW6YFG7I3BVQS3KBTQF47HFGENUC/DQNPW7ZXRDGSWN5TI26SKURYG6YRZBKR/PKMLYTWGUJTDR35VNBVHWHHGCCA6CPK4.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 900;
+}
