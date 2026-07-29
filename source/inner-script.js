@@ -479,15 +479,15 @@
         var travel = clamp(scrollY - hero.offsetTop, 0, hero.offsetHeight);
         var heroProgress = travel / Math.max(hero.offsetHeight, 1);
         if (page === "about") {
-          var pageTravel = Math.max(
-            document.documentElement.scrollHeight - window.innerHeight,
+          var aboutTravel = Math.max(0, scrollY - hero.offsetTop);
+          var aboutHeroProgress = clamp(
+            aboutTravel / Math.max(hero.offsetHeight, 1),
+            0,
             1
           );
-          var pageProgress = clamp(scrollY / pageTravel, 0, 1);
-          var aboutTravel = Math.max(0, scrollY - hero.offsetTop);
           hero.style.setProperty(
             "--qi-about-page-scale",
-            (1 - pageProgress * 0.1).toFixed(6)
+            (1 - aboutHeroProgress * 0.1).toFixed(6)
           );
           heroMotionNode.style.setProperty("--qi-hero-y", (-aboutTravel * 0.2).toFixed(2) + "px");
           heroMotionNode.style.setProperty("--qi-hero-scale", "1");

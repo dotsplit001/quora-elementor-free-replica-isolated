@@ -816,6 +816,48 @@
   text-align: center;
 }
 
+.qi-page-about .qi-scroll-cue{
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  z-index: 3;
+  width: 20px;
+  height: 32px;
+  border: 1px solid #fff;
+  border-radius: 100px;
+  opacity: .001;
+  transform: translateY(40px);
+  animation: qi-scroll-cue-in 800ms cubic-bezier(.28, .41, .56, 1) 1000ms both;
+  will-change: opacity, transform;
+}
+
+.qi-page-about .qi-scroll-cue i{
+  position: absolute;
+  top: 6px;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #fff;
+  animation: qi-scroll-cue-line 650ms cubic-bezier(.22, 1, .36, 1) 1000ms both;
+  will-change: top, height;
+}
+
+@keyframes qi-scroll-cue-in{
+  to{
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes qi-scroll-cue-line{
+  to{
+    top: 21px;
+    height: 5px;
+  }
+}
+
 .qi-about-office{
   position: absolute;
   right: auto;
@@ -1496,6 +1538,10 @@
     width: 100%;
   }
 
+  .qi-page-about .qi-scroll-cue{
+    right: 16px;
+  }
+
   .qi-about-story{
     padding: 60px 16px;
     gap: 32px;
@@ -1601,6 +1647,7 @@
   .qi-page-about .qi-about-hero-media > img,
 .qi-page-about .qi-image-hero-content h2,
 .qi-page-about .qi-image-hero-content p,
+.qi-page-about .qi-scroll-cue,
 .qi-about-office,
 .qi-page-about [data-about-text-effect],
 .qi-page-about .qi-about-token{
@@ -1608,6 +1655,12 @@
     scale: 1;
     filter: none;
     transform: none;
+    animation: none;
+  }
+
+  .qi-page-about .qi-scroll-cue i{
+    top: 21px;
+    height: 5px;
     animation: none;
   }
 }
@@ -5645,15 +5698,15 @@
         var travel = clamp(scrollY - hero.offsetTop, 0, hero.offsetHeight);
         var heroProgress = travel / Math.max(hero.offsetHeight, 1);
         if (page === "about") {
-          var pageTravel = Math.max(
-            document.documentElement.scrollHeight - window.innerHeight,
+          var aboutTravel = Math.max(0, scrollY - hero.offsetTop);
+          var aboutHeroProgress = clamp(
+            aboutTravel / Math.max(hero.offsetHeight, 1),
+            0,
             1
           );
-          var pageProgress = clamp(scrollY / pageTravel, 0, 1);
-          var aboutTravel = Math.max(0, scrollY - hero.offsetTop);
           hero.style.setProperty(
             "--qi-about-page-scale",
-            (1 - pageProgress * 0.1).toFixed(6)
+            (1 - aboutHeroProgress * 0.1).toFixed(6)
           );
           heroMotionNode.style.setProperty("--qi-hero-y", (-aboutTravel * 0.2).toFixed(2) + "px");
           heroMotionNode.style.setProperty("--qi-hero-scale", "1");

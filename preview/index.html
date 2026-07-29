@@ -640,6 +640,19 @@
   object-fit: contain;
 }
 
+.q-intro-heading > .q-key-icon {
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+  transition:
+    opacity 1200ms var(--q-shared-gesture-spring),
+    transform 1200ms var(--q-shared-gesture-spring);
+}
+
+.q-intro-heading.is-visible > .q-key-icon {
+  opacity: 1;
+  transform: none;
+}
+
 .q-intro-heading h2,
 .q-section-heading h2,
 .q-insights__header h2,
@@ -664,6 +677,12 @@
   align-items: center;
   margin-top: 24px;
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 600ms cubic-bezier(.44, .02, .22, 1) 200ms;
+}
+
+.q-intro-heading.is-visible .q-logo-marquee {
+  opacity: 1;
 }
 
 .q-logo-track {
@@ -981,6 +1000,27 @@
   line-height: 1.4;
   letter-spacing: normal;
   white-space: nowrap;
+}
+
+.q-mode-word,
+.q-mode-char {
+  display: inline-block;
+}
+
+.q-mode-word {
+  white-space: nowrap;
+}
+
+.q-mode-char {
+  opacity: .001;
+  filter: blur(10px);
+  transform: translate3d(0, 10px, 0);
+  will-change: opacity, filter, transform;
+}
+
+.q-mode-content.is-visible .q-mode-char {
+  animation: q-brand-letter-in 1400ms linear both;
+  animation-delay: var(--q-mode-char-delay, 50ms);
 }
 
 .q-tech-card--audio {
@@ -1692,6 +1732,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 400ms cubic-bezier(.34, 1.56, .64, 1);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .q-insight-card:hover > img,
+  .q-insight-card:focus-visible > img {
+    transform: scale(1.05);
+  }
 }
 
 .q-insight-shade {
@@ -2449,10 +2498,21 @@
 
   .q-hero-copy-line,
   .q-hero__copy .q-button,
-  .q-scroll-cue {
+  .q-scroll-cue,
+  .q-mode-char {
     opacity: 1;
     filter: none;
     transform: none;
+  }
+
+  .q-intro-heading > .q-key-icon,
+  .q-logo-marquee {
+    opacity: 1;
+    transform: none;
+  }
+
+  .q-insight-card > img {
+    transition: none;
   }
 
   .q-scroll-cue i {
@@ -3659,6 +3719,54 @@
     rootMargin: "0px"
   });
 
+  function tokenizeModeText(node, startDelay) {
+    if (!node || node.dataset.motionTokenized === "true") return;
+    var text = node.textContent.trim();
+    var words = text.split(/\s+/);
+    var characterIndex = 0;
+
+    node.textContent = "";
+    node.classList.add("q-mode-text");
+    node.setAttribute("aria-label", text);
+
+    words.forEach(function (word, wordIndex) {
+      var wordNode = document.createElement("span");
+      wordNode.className = "q-mode-word";
+      wordNode.setAttribute("aria-hidden", "true");
+
+      Array.from(word).forEach(function (character) {
+        var characterNode = document.createElement("span");
+        characterNode.className = "q-mode-char";
+        characterNode.style.setProperty(
+          "--q-mode-char-delay",
+          (startDelay + characterIndex * 30) + "ms"
+        );
+        characterNode.textContent = character;
+        wordNode.appendChild(characterNode);
+        characterIndex += 1;
+      });
+
+      node.appendChild(wordNode);
+      if (wordIndex < words.length - 1) {
+        node.appendChild(document.createTextNode(" "));
+      }
+    });
+
+    node.dataset.motionTokenized = "true";
+  }
+
+  var modeContent = root.querySelector(".q-mode-content");
+  if (modeContent) {
+    tokenizeModeText(modeContent.querySelector(":scope > h1"), 500);
+    modeContent.querySelectorAll("h4").forEach(function (heading) {
+      tokenizeModeText(heading, 50);
+    });
+    observeOnce([modeContent], {
+      threshold: 0,
+      rootMargin: "0px"
+    });
+  }
+
   var featureItems = Array.prototype.slice.call(
     root.querySelectorAll(".q-hero__features > p")
   );
@@ -3694,15 +3802,15 @@
     if (!hero || reduceMotion) return;
 
     var scrollTop = window.scrollY || window.pageYOffset || 0;
-    var pageTravel = Math.max(
-      document.documentElement.scrollHeight - window.innerHeight,
+    var heroProgress = clamp(
+      scrollTop / Math.max(hero.offsetHeight, 1),
+      0,
       1
     );
-    var pageProgress = clamp(scrollTop / pageTravel, 0, 1);
 
     hero.style.setProperty(
       "--q-hero-page-scale",
-      (1 - pageProgress * 0.1).toFixed(6)
+      (1 - heroProgress * 0.1).toFixed(6)
     );
     hero.style.setProperty(
       "--q-hero-device-y",

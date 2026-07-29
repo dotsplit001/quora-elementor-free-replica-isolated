@@ -151,6 +151,54 @@
     rootMargin: "0px"
   });
 
+  function tokenizeModeText(node, startDelay) {
+    if (!node || node.dataset.motionTokenized === "true") return;
+    var text = node.textContent.trim();
+    var words = text.split(/\s+/);
+    var characterIndex = 0;
+
+    node.textContent = "";
+    node.classList.add("q-mode-text");
+    node.setAttribute("aria-label", text);
+
+    words.forEach(function (word, wordIndex) {
+      var wordNode = document.createElement("span");
+      wordNode.className = "q-mode-word";
+      wordNode.setAttribute("aria-hidden", "true");
+
+      Array.from(word).forEach(function (character) {
+        var characterNode = document.createElement("span");
+        characterNode.className = "q-mode-char";
+        characterNode.style.setProperty(
+          "--q-mode-char-delay",
+          (startDelay + characterIndex * 30) + "ms"
+        );
+        characterNode.textContent = character;
+        wordNode.appendChild(characterNode);
+        characterIndex += 1;
+      });
+
+      node.appendChild(wordNode);
+      if (wordIndex < words.length - 1) {
+        node.appendChild(document.createTextNode(" "));
+      }
+    });
+
+    node.dataset.motionTokenized = "true";
+  }
+
+  var modeContent = root.querySelector(".q-mode-content");
+  if (modeContent) {
+    tokenizeModeText(modeContent.querySelector(":scope > h1"), 500);
+    modeContent.querySelectorAll("h4").forEach(function (heading) {
+      tokenizeModeText(heading, 50);
+    });
+    observeOnce([modeContent], {
+      threshold: 0,
+      rootMargin: "0px"
+    });
+  }
+
   var featureItems = Array.prototype.slice.call(
     root.querySelectorAll(".q-hero__features > p")
   );
@@ -186,15 +234,15 @@
     if (!hero || reduceMotion) return;
 
     var scrollTop = window.scrollY || window.pageYOffset || 0;
-    var pageTravel = Math.max(
-      document.documentElement.scrollHeight - window.innerHeight,
+    var heroProgress = clamp(
+      scrollTop / Math.max(hero.offsetHeight, 1),
+      0,
       1
     );
-    var pageProgress = clamp(scrollTop / pageTravel, 0, 1);
 
     hero.style.setProperty(
       "--q-hero-page-scale",
-      (1 - pageProgress * 0.1).toFixed(6)
+      (1 - heroProgress * 0.1).toFixed(6)
     );
     hero.style.setProperty(
       "--q-hero-device-y",
