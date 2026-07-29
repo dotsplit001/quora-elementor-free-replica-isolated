@@ -11,6 +11,11 @@ $previewRoot = Join-Path $packageRoot "preview"
 $elementorRoot = Join-Path $packageRoot "elementor"
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 $emDash = [char]0x2014
+$imageDimensions = @{}
+$imageDimensionData = [System.IO.File]::ReadAllText((Join-Path $sourceRoot "image-dimensions.json")) | ConvertFrom-Json
+foreach ($property in $imageDimensionData.PSObject.Properties) {
+    $imageDimensions[$property.Name] = @([int]$property.Value[0], [int]$property.Value[1])
+}
 
 if (-not $WordPressAssetBase.EndsWith("/")) { $WordPressAssetBase += "/" }
 if (-not $WordPressSiteBase.EndsWith("/")) { $WordPressSiteBase += "/" }
@@ -206,6 +211,46 @@ function Convert-PreviewLinksToFiles {
     )
 }
 
+function Add-ImagePerformanceHints {
+    param(
+        [string]$Html,
+        [string[]]$HighPriorityImages = @()
+    )
+
+    return [regex]::Replace(
+        $Html,
+        '<img\b[^>]*>',
+        [System.Text.RegularExpressions.MatchEvaluator]{
+            param($match)
+
+            $tag = $match.Value
+            $sourceMatch = [regex]::Match($tag, '\bsrc="([^"]+)"', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+            if (-not $sourceMatch.Success) { return $tag }
+
+            $imageName = [System.IO.Path]::GetFileName($sourceMatch.Groups[1].Value)
+            if (-not $imageDimensions.ContainsKey($imageName)) { return $tag }
+
+            $attributes = ""
+            $dimensions = $imageDimensions[$imageName]
+            if ($tag -notmatch '\bwidth\s*=') {
+                $attributes += ' width="' + $dimensions[0] + '"'
+            }
+            if ($tag -notmatch '\bheight\s*=') {
+                $attributes += ' height="' + $dimensions[1] + '"'
+            }
+            if ($HighPriorityImages -contains $imageName -and $tag -notmatch '\bfetchpriority\s*=') {
+                $attributes += ' fetchpriority="high"'
+            }
+
+            if (-not $attributes) { return $tag }
+            if ($tag.EndsWith("/>", [StringComparison]::Ordinal)) {
+                return $tag.Substring(0, $tag.Length - 2) + $attributes + "/>"
+            }
+            return $tag.Substring(0, $tag.Length - 1) + $attributes + ">"
+        }
+    )
+}
+
 $previewNavigationGuard = @'
 (function () {
   "use strict";
@@ -305,6 +350,7 @@ $homePreviewBody = $homeBody.
     Replace("__QUORA_ASSET_BASE__", "../assets/images/").
     Replace("__QUORA_SITE_BASE__", "")
 $homePreviewBody = Convert-PreviewLinksToFiles -Html $homePreviewBody
+$homePreviewBody = Add-ImagePerformanceHints -Html $homePreviewBody -HighPriorityImages @("hero-device.webp")
 
 $homePreviewHtml = @"
 <!doctype html>
@@ -340,6 +386,7 @@ $preorderJs
 $homeWidgetBody = $homeBody.
     Replace("__QUORA_ASSET_BASE__", $WordPressAssetBase).
     Replace("__QUORA_SITE_BASE__", $WordPressSiteBase)
+$homeWidgetBody = Add-ImagePerformanceHints -Html $homeWidgetBody -HighPriorityImages @("hero-device.webp")
 
 $homeWidgetHtml = @"
 $fontLinks
@@ -365,20 +412,20 @@ $innerCss = $fontCss + [Environment]::NewLine + [System.IO.File]::ReadAllText((J
 $innerJs = [System.IO.File]::ReadAllText((Join-Path $sourceRoot "inner-script.js"))
 
 $pages = @(
-    [ordered]@{ Source = "product.html"; Preview = "product/index.html"; PreviewBase = "../"; BaseName = "quora-product"; Title = "Quora Replica $emDash Product"; Description = "Quora portable audio product collection." },
-    [ordered]@{ Source = "about-us.html"; Preview = "about-us/index.html"; PreviewBase = "../"; BaseName = "quora-about-us"; Title = "Quora Replica $emDash About us"; Description = "About Quora and the values behind its audio products." },
+    [ordered]@{ Source = "product.html"; Preview = "product/index.html"; PreviewBase = "../"; BaseName = "quora-product"; Title = "Quora Replica $emDash Product"; Description = "Quora portable audio product collection."; HighPriorityImage = "smart-speakers.webp" },
+    [ordered]@{ Source = "about-us.html"; Preview = "about-us/index.html"; PreviewBase = "../"; BaseName = "quora-about-us"; Title = "Quora Replica $emDash About us"; Description = "About Quora and the values behind its audio products."; HighPriorityImage = "audio-listener.webp" },
     [ordered]@{ Source = "blogs.html"; Preview = "blogs/index.html"; PreviewBase = "../"; BaseName = "quora-blogs"; Title = "Quora Replica $emDash Insights"; Description = "Quora smart home insights and product stories." },
-    [ordered]@{ Source = "contact.html"; Preview = "contact/index.html"; PreviewBase = "../"; BaseName = "quora-contact"; Title = "Quora Replica $emDash Contact"; Description = "Contact the Quora support team." },
+    [ordered]@{ Source = "contact.html"; Preview = "contact/index.html"; PreviewBase = "../"; BaseName = "quora-contact"; Title = "Quora Replica $emDash Contact"; Description = "Contact the Quora support team."; HighPriorityImage = "contact-headphones.jpeg" },
     [ordered]@{ Source = "legal-terms-conditions.html"; Preview = "legal/terms-conditions/index.html"; PreviewBase = "../../"; BaseName = "quora-terms-conditions"; Title = "Quora Replica $emDash Terms & Conditions"; Description = "Quora terms and conditions." },
     [ordered]@{ Source = "legal-privacy-policy.html"; Preview = "legal/privacy-policy/index.html"; PreviewBase = "../../"; BaseName = "quora-privacy-policy"; Title = "Quora Replica $emDash Privacy Policy"; Description = "Quora privacy policy." },
     [ordered]@{ Source = "legal-refund-policy.html"; Preview = "legal/refund-policy/index.html"; PreviewBase = "../../"; BaseName = "quora-refund-policy"; Title = "Quora Replica $emDash Refund Policy"; Description = "Quora refund policy." },
     [ordered]@{ Source = "404.html"; Preview = "404/index.html"; PreviewBase = "../"; BaseName = "quora-404"; Title = "Quora Replica $emDash Page Not Found"; Description = "Quora page not found template." },
-    [ordered]@{ Source = "blog-focus-mode-but-for-your-house.html"; Preview = "blogs/focus-mode-but-for-your-house/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-focus-mode"; Title = "Quora Replica $emDash Focus Mode"; Description = "How a whole-house focus mode can support intentional living." },
-    [ordered]@{ Source = "blog-smarter-mornings-start-here.html"; Preview = "blogs/smarter-mornings-start-here/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-smarter-mornings"; Title = "Quora Replica $emDash Smarter Mornings"; Description = "Build a calmer smart-home morning routine." },
-    [ordered]@{ Source = "blog-home-but-smarter.html"; Preview = "blogs/home-but-smarter/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-home-but-smarter"; Title = "Quora Replica $emDash Home, But Smarter"; Description = "Build a considered connected-home ecosystem." },
-    [ordered]@{ Source = "blog-designed-for-real-routines.html"; Preview = "blogs/designed-for-real-routines/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-real-routines"; Title = "Quora Replica $emDash Designed for Real Routines"; Description = "Design smart-home technology around real life." },
-    [ordered]@{ Source = "blog-one-device-limitless-calm.html"; Preview = "blogs/one-device-limitless-calm/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-limitless-calm"; Title = "Quora Replica $emDash One Device, Limitless Calm"; Description = "Create a calmer connected-home experience." },
-    [ordered]@{ Source = "blog-the-power-of-presence.html"; Preview = "blogs/the-power-of-presence/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-power-of-presence"; Title = "Quora Replica $emDash The Power of Presence"; Description = "Explore presence-aware smart-home technology." }
+    [ordered]@{ Source = "blog-focus-mode-but-for-your-house.html"; Preview = "blogs/focus-mode-but-for-your-house/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-focus-mode"; Title = "Quora Replica $emDash Focus Mode"; Description = "How a whole-house focus mode can support intentional living."; HighPriorityImage = "focus-controls.webp" },
+    [ordered]@{ Source = "blog-smarter-mornings-start-here.html"; Preview = "blogs/smarter-mornings-start-here/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-smarter-mornings"; Title = "Quora Replica $emDash Smarter Mornings"; Description = "Build a calmer smart-home morning routine."; HighPriorityImage = "smart-home-phone.webp" },
+    [ordered]@{ Source = "blog-home-but-smarter.html"; Preview = "blogs/home-but-smarter/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-home-but-smarter"; Title = "Quora Replica $emDash Home, But Smarter"; Description = "Build a considered connected-home ecosystem."; HighPriorityImage = "smart-lamp.webp" },
+    [ordered]@{ Source = "blog-designed-for-real-routines.html"; Preview = "blogs/designed-for-real-routines/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-real-routines"; Title = "Quora Replica $emDash Designed for Real Routines"; Description = "Design smart-home technology around real life."; HighPriorityImage = "blog-routines.png" },
+    [ordered]@{ Source = "blog-one-device-limitless-calm.html"; Preview = "blogs/one-device-limitless-calm/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-limitless-calm"; Title = "Quora Replica $emDash One Device, Limitless Calm"; Description = "Create a calmer connected-home experience."; HighPriorityImage = "blog-limitless-calm.jpg" },
+    [ordered]@{ Source = "blog-the-power-of-presence.html"; Preview = "blogs/the-power-of-presence/index.html"; PreviewBase = "../../"; BaseName = "quora-blog-power-of-presence"; Title = "Quora Replica $emDash The Power of Presence"; Description = "Explore presence-aware smart-home technology."; HighPriorityImage = "blog-presence.png" }
 )
 
 $pageIndex = 0
@@ -396,6 +443,7 @@ foreach ($page in $pages) {
         Replace("__QUORA_CONTACT_ENDPOINT__", "").
         Replace("__QUORA_NEWSLETTER_ENDPOINT__", "")
     $previewBody = Convert-PreviewLinksToFiles -Html $previewBody
+    $previewBody = Add-ImagePerformanceHints -Html $previewBody -HighPriorityImages @($page.HighPriorityImage)
 
     $previewHtml = @"
 <!doctype html>
@@ -432,6 +480,7 @@ $preorderJs
         Replace("__QUORA_SITE_BASE__", $WordPressSiteBase).
         Replace("__QUORA_CONTACT_ENDPOINT__", ($WordPressSiteBase + "wp-json/quora-replica/v1/contact")).
         Replace("__QUORA_NEWSLETTER_ENDPOINT__", ($WordPressSiteBase + "wp-json/quora-replica/v1/newsletter"))
+    $widgetBody = Add-ImagePerformanceHints -Html $widgetBody -HighPriorityImages @($page.HighPriorityImage)
     $widgetHtml = @"
 $fontLinks
 <style>
