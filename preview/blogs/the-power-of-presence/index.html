@@ -1511,11 +1511,38 @@
     line-height: 43.2px;
   }
 
+  .qi-page-about .qi-why-copy{
+    left: max(16px, calc((100% - 1200px) / 2));
+  }
+
+  .qi-page-about .qi-values .qi-section-head{
+    height: auto;
+    min-height: 106.8125px;
+    grid-template-rows: 39.6042px auto;
+    align-items: start;
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+
+  .qi-page-about .qi-values .qi-section-head > div{
+    display: contents;
+  }
+
+  .qi-page-about .qi-values .qi-kicker{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .qi-page-about .qi-values .qi-section-head h2{
+    grid-column: 1;
+    grid-row: 2;
+  }
+
   .qi-page-about .qi-values .qi-section-head > p{
-    position: absolute;
-    top: 55.6042px;
-    right: 0;
-    width: calc((100% - 16px) / 2);
+    position: static;
+    grid-column: 2;
+    grid-row: 2;
+    width: 100%;
   }
 
 }
