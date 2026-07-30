@@ -1518,6 +1518,9 @@
     width: calc((100% - 16px) / 2);
   }
 
+}
+
+@media (min-width: 810px) and (max-width: 900px){
   .qi-page-about .qi-values .qi-section-head{
     height: 132.4167px;
   }
@@ -2565,11 +2568,17 @@
 
   .qi-page-product .qi-performance-media{
     width: 100%;
-    height: 100%;
   }
 
   .qi-page-product .qi-performance-content{
     width: 100%;
+  }
+}
+
+@media (min-width: 810px) and (max-width: 900px) {
+  .qi-page-product .qi-performance-media{
+    height: auto;
+    align-self: stretch;
   }
 
   .qi-page-product .qi-feature-grid{
