@@ -106,17 +106,58 @@
       return;
     }
 
+    var pending = new Set(items);
+    var fallbackFrame = 0;
+
+    function stopFallbackAudit() {
+      if (pending.size) return;
+      window.removeEventListener("scroll", queueFallbackAudit);
+      window.removeEventListener("resize", queueFallbackAudit);
+    }
+
+    function reveal(item) {
+      if (!pending.has(item)) return;
+      item.classList.add("is-visible");
+      pending.delete(item);
+      observer.unobserve(item);
+      stopFallbackAudit();
+    }
+
+    function auditPassedItems() {
+      fallbackFrame = 0;
+      var activationLine = window.innerHeight * 0.5;
+      pending.forEach(function (item) {
+        var rect = item.getBoundingClientRect();
+        /*
+         * A thresholded IntersectionObserver can miss a compact element when
+         * smooth scrolling advances by more than its height. Keep the original
+         * 50% timing, but recover items whose intended trigger line has already
+         * crossed the viewport so they never remain permanently transparent.
+         */
+        if (rect.bottom <= 0 || (rect.bottom > 0 && rect.top < activationLine)) {
+          reveal(item);
+        }
+      });
+    }
+
+    function queueFallbackAudit() {
+      if (fallbackFrame || !pending.size) return;
+      fallbackFrame = window.requestAnimationFrame(auditPassedItems);
+    }
+
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
+        reveal(entry.target);
       });
     }, options || { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
 
     items.forEach(function (item) {
       observer.observe(item);
     });
+    window.addEventListener("scroll", queueFallbackAudit, { passive: true });
+    window.addEventListener("resize", queueFallbackAudit);
+    queueFallbackAudit();
   }
 
   var pageReveals = Array.prototype.slice.call(
