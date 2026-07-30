@@ -487,7 +487,7 @@
           );
           hero.style.setProperty(
             "--qi-about-page-scale",
-            (1 - aboutHeroProgress * 0.1).toFixed(6)
+            (1 - aboutHeroProgress * 0.02).toFixed(6)
           );
           heroMotionNode.style.setProperty("--qi-hero-y", (-aboutTravel * 0.2).toFixed(2) + "px");
           heroMotionNode.style.setProperty("--qi-hero-scale", "1");
