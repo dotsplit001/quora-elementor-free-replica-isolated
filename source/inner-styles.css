@@ -1578,6 +1578,7 @@
   height: 39.6042px;
   display: inline-flex;
   align-items: center;
+  margin: 0;
   padding: 10px 16px;
   border-radius: 8px;
   background: #f7f7f7;
@@ -1587,6 +1588,7 @@
   font-weight: 400;
   line-height: 19.6px;
   letter-spacing: 0;
+  text-transform: none;
   white-space: nowrap;
 }
 
