@@ -1991,6 +1991,10 @@
     width: auto;
   }
 
+  .q-hero-copy-line {
+    display: inline;
+  }
+
   .q-scroll-cue {
     right: 16px;
   }
@@ -2147,6 +2151,16 @@
 
   .q-product-row:first-child {
     gap: 16px;
+  }
+
+  .q-product-row:first-child .q-product-copy {
+    gap: 16px;
+  }
+
+  .q-product-row:first-child .q-product-copy h2,
+  .q-product-row:first-child .q-product-copy p,
+  .q-product-row:first-child .q-product-copy .q-button {
+    margin-top: 0;
   }
 
   .q-product-row--reverse {
