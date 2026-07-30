@@ -1016,7 +1016,7 @@
 .qi-about-story-grid{
   width: min(1200px, 100%);
   display: grid;
-  grid-template-columns: 569px 569px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
   justify-content: center;
   column-gap: 62px;
@@ -1024,8 +1024,9 @@
 }
 
 .qi-about-story-media{
-  width: 569px;
-  height: 560px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 569 / 560;
   overflow: hidden;
   border-radius: 16px;
   --qi-from-x: -30px;
@@ -1033,15 +1034,15 @@
 }
 
 .qi-about-story-media img{
-  width: 569px;
-  height: 560px;
+  width: 100%;
+  height: 100%;
   display: block;
   border-radius: 16px;
   object-fit: cover;
 }
 
 .qi-about-story-copy{
-  width: 569px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -1515,6 +1516,10 @@
     top: 55.6042px;
     right: 0;
     width: calc((100% - 16px) / 2);
+  }
+
+  .qi-page-about .qi-values .qi-section-head{
+    height: 132.4167px;
   }
 }
 
@@ -2058,7 +2063,7 @@
 .qi-page-product .qi-overview-head,
 .qi-page-product .qi-testimonials-head{
   display: grid;
-  grid-template-columns: 588px 588px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 24px;
   align-items: end;
 }
@@ -2073,20 +2078,20 @@
 
 .qi-page-product .qi-overview-intro,
 .qi-page-product .qi-testimonial-intro{
-  width: 588px;
+  width: 100%;
   align-self: end;
   color: #000;
 }
 
 .qi-page-product .qi-overview-media{
   display: grid;
-  grid-template-columns: 588px 588px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
 
 .qi-page-product .qi-overview-controller,
 .qi-page-product .qi-overview-wordmark-card{
-  width: 588px;
+  width: 100%;
   height: 336px;
   overflow: hidden;
   border-radius: 16px;
@@ -2136,8 +2141,8 @@
   width: 100%;
   min-height: 560px;
   display: grid;
-  grid-template-columns: 569px 569px;
-  grid-template-rows: 560px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto;
   column-gap: 62px;
   align-items: center;
   padding: 0;
@@ -2148,8 +2153,9 @@
 }
 
 .qi-page-product .qi-product-panel .qi-product-media{
-  width: 569px;
-  height: 560px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 569 / 560;
   min-height: 0;
   overflow: hidden;
   border-radius: 16px;
@@ -2167,7 +2173,7 @@
 }
 
 .qi-page-product .qi-product-panel .qi-product-copy{
-  width: 569px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -2234,7 +2240,7 @@
 }
 
 .qi-page-product .qi-testimonials-head h2{
-  width: 588px;
+  width: 100%;
 }
 
 .qi-page-product .qi-testimonial-intro{
@@ -2444,12 +2450,12 @@
 
 .qi-page-product .qi-service-band-inner{
   display: grid;
-  grid-template-columns: repeat(3, 400px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
 }
 
 .qi-page-product .qi-service-band article{
-  width: 400px;
+  width: 100%;
   min-height: 121.6042px;
   display: flex;
   flex-direction: column;
@@ -2545,6 +2551,35 @@
   .qi-page-product .qi-service-band{
     padding-top: 60px;
     padding-bottom: 60px;
+  }
+}
+
+@media (min-width: 810px) and (max-width: 1439.98px) {
+  .qi-page-product .qi-product-panel{
+    min-height: 0;
+  }
+
+  .qi-page-product .qi-performance-layout{
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+
+  .qi-page-product .qi-performance-media{
+    width: 100%;
+    height: 100%;
+  }
+
+  .qi-page-product .qi-performance-content{
+    width: 100%;
+  }
+
+  .qi-page-product .qi-feature-grid{
+    height: auto;
+    grid-template-rows: auto auto;
+  }
+
+  .qi-page-product .qi-feature{
+    height: auto;
+    min-height: 0;
   }
 }
 
@@ -4530,7 +4565,7 @@
 .qi-footer {
   position: relative;
   width: 100%;
-  height: 775.6042px;
+  height: auto;
   overflow: hidden;
   background: #f7f7f7;
 }
@@ -4564,6 +4599,8 @@
 .qi-footer-panel {
   --qi-footer-scale: .9;
   --qi-footer-y: 170px;
+  position: relative;
+  top: auto;
   z-index: 1;
   right: 0;
   left: 0;
@@ -4575,6 +4612,7 @@
   gap: 32px;
   overflow: hidden;
   color: #fff;
+  height: auto;
   transform: translateY(var(--qi-footer-y)) scale(var(--qi-footer-scale));
 }
 
@@ -4704,7 +4742,7 @@
 
 @media (min-width: 810px) and (max-width: 1439.98px) {
   .qi-footer {
-    height: 789.4688px;
+    height: auto;
   }
 
   .qi-footer-panel {
@@ -4735,7 +4773,7 @@
 
 @media (max-width: 809.98px) {
   .qi-footer {
-    height: 759.2396px;
+    height: auto;
   }
 
   .qi-footer-panel {
