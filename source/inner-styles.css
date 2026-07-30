@@ -2425,9 +2425,10 @@
   }
 
   .qi-page-product .qi-overview-title,
-.qi-page-product .qi-testimonials-title,
-.qi-page-product .qi-overview-intro,
-.qi-page-product .qi-testimonial-intro{
+  .qi-page-product .qi-testimonials-title,
+  .qi-page-product .qi-testimonials-head h2,
+  .qi-page-product .qi-overview-intro,
+  .qi-page-product .qi-testimonial-intro{
     width: 100%;
   }
 
