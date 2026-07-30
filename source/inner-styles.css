@@ -1364,7 +1364,7 @@
     height: auto;
     min-height: 106.8125px;
     grid-template-rows: 39.6042px auto;
-    align-items: start;
+    align-items: center;
     column-gap: 16px;
     row-gap: 16px;
   }
